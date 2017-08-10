@@ -16,15 +16,11 @@ $result = mysqli_query($conn, "SELECT * FROM device");
     <header>
       <h1><a href = "/">Mango block</a></h1>
     </header>
-
     <nav>
-
       <ul id="menubar">
-
         <li><a href="index.php?page=manage">기기관리</a></li>
         <li><a href="index.php?page=mydevice">내 장치</a></li>
         <li><a href="index.php?page=setting">설정</a></li>
-
         <!--
           // 이제부터 사용하지 않을 예정.
           // while($row=mysqli_fetch_assoc($result))
@@ -55,7 +51,7 @@ $result = mysqli_query($conn, "SELECT * FROM device");
       include 'page/'.$_GET['page'].'.php';
     }
     else {
-      
+
     }
 
 
