@@ -36,26 +36,12 @@ $result = mysqli_query($conn, "SELECT * FROM device");
 
     <article>
       <?php
-        if(empty($_GET['id'])===false)
-        {
-          $sql='select * from device where id='.$_GET['id'];
-          $result=mysqli_query($conn,$sql);
-          $row=mysqli_fetch_assoc($result);
-
-          echo '<h2>'.$row['name'].'</h2>';
-          echo '<a href="process.php?state=on"><input type="button" value="on"></a>';
-          echo '<a href="process.php?state=off"><input type="button" value="off"></a>';
-        }
-
-    if (empty($_GET['page']) == false){
-      include 'page/'.$_GET['page'].'.php';
-    }
-    else {
-
-    }
-
-
-    ?>
+	  	//메뉴를 클릭시 페이지 이동
+	  	if (empty($_GET['page']) == false){
+      		include 'page/'.$_GET['page'].'.php';
+      	}
+    	else {	}
+     ?>
     </article>
   </body>
 </html>
