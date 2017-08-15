@@ -25,7 +25,7 @@ while($row=mysqli_fetch_assoc($result)){
   echo   $row['status']==1 ? 'On' : 'Off';
   echo  '<br>추가시간 : '.$row['created'];
   echo  '<br><input type="submit" name="submit" value="변경">';
-  echo  '<br><input type="button" name="submit" value="삭제" onclick="location.href'process/delete_process.php?id=".$row['id']."';">';
+  echo  '<br><input type="button" name="submit" value="삭제">';
   echo '</form>';
 }
 
