@@ -1,7 +1,7 @@
 <?php
-$conn = mysqli_connect("localhost","root","mango");
+$conn = mysqli_connect("localhost:3307","root","mango");
 mysqli_select_db($conn,"mango");
-$result = mysqli_query($conn, "SELECT * FROM device");
+//$result = mysqli_query($conn, "SELECT * FROM device");
 ?>
 
 <!DOCTYPE html>
