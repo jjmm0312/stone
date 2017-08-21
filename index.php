@@ -1,7 +1,7 @@
 <?php
-$conn = mysqli_connect("localhost:3307","root","mango");
-mysqli_select_db($conn,"mango");
-//$result = mysqli_query($conn, "SELECT * FROM device");
+  //include 는 파일이 없을 경우 계속 하지만
+  //require 는 파일이 없으면 멈춘다.
+  require '/setting/sql_setting.php'
 ?>
 
 <!DOCTYPE html>
