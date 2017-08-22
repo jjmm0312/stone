@@ -29,7 +29,7 @@
             echo '<li><a href="index.php?page=login">로그인</a></li>';
           }
           else {
-            echo '<li><a href="index.php?page=logout">로그아웃</a></li>';
+            echo '<li><a href="/process/logout_process.php">로그아웃</a></li>';
           }
          ?>
         <li><a href="index.php?page=manage">기기관리</a></li>
@@ -52,7 +52,19 @@
       <?php
 	  	//메뉴를 클릭시 페이지 이동
 	  	if (empty($_GET['page']) == false){
-      		include 'page/'.$_GET['page'].'.php';
+          if ($_GET['page'] == 'login'){
+        		include 'page/'.$_GET['page'].'.php';
+          }
+          else {
+            if (isset($_SESSION['user_id'])){
+          		include 'page/'.$_GET['page'].'.php';
+            }
+            else {
+              echo "<script language=javascript>";
+              echo "alert('로그인이 필요합니다.');";
+              echo "</script>";
+            }
+          }
       	}
     	else {	}
      ?>
