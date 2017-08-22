@@ -3,8 +3,7 @@
   //require 는 파일이 없으면 멈춘다.
   require './setting/sql_setting.php'
 
-  //login session start
-  session_start();
+
 
 ?>
 
@@ -24,6 +23,8 @@
     <nav>
       <ul id="menubar">
         <?php
+          //login session start
+          session_start();
           if (!isset($_SESSION['user_id'])){
             echo '<li><a href="index.php?page=login">로그인</a></li>';
           }
