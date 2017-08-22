@@ -1,8 +1,8 @@
 <?php
 $sql='SELECT * FROM device';
 $result=mysqli_query($conn,$sql);
-echo '<form id="device_manage_signal_form" action="bring_device_signal.php" method="post">';
-echo '<input type="submit" name ="bringDeviceSignal" value="신호가져오기"/>';
+echo '<form id="device_manage_signal_form">';
+echo '<input type="submit" class ="bringDeviceSignal" value="신호가져오기"/>';
 echo '</form>';
 
 
@@ -40,3 +40,8 @@ echo  '정보 : <input type="text" name="description" value="">';
 echo  '<input type="submit" name="submit" value="추가">';
 echo '</form>';
 ?>
+<script type="text/javascript">
+  $('.bringDeviceSignal').click( function(){
+    
+  });
+</script>
