@@ -53,7 +53,7 @@
 	  	//메뉴를 클릭시 페이지 이동
 	  	if (empty($_GET['page']) == false){
           if ($_GET['page'] == 'login'){
-        		include 'page/'.$_GET['page'].'.php';
+        		include 'page/login.php';
           }
           else {
             if (isset($_SESSION['user_id'])){
@@ -63,6 +63,7 @@
               echo "<script language=javascript>";
               echo "alert('로그인이 필요합니다.');";
               echo "</script>";
+              include 'page/login.php';
             }
           }
       	}
