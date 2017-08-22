@@ -2,6 +2,10 @@
   //include 는 파일이 없을 경우 계속 하지만
   //require 는 파일이 없으면 멈춘다.
   require './setting/sql_setting.php'
+
+  //login session start
+  session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +23,14 @@
     </header>
     <nav>
       <ul id="menubar">
+        <?php
+          if (!isset($_SESSION['user_id'])){
+            echo '<li><a href="index.php?page=login">로그인</a></li>';
+          }
+          else {
+            echo '<li><a href="index.php?page=logout">로그아웃</a></li>';
+          }
+         ?>
         <li><a href="index.php?page=manage">기기관리</a></li>
         <li><a href="index.php?page=mydevice">내 장치</a></li>
         <li><a href="index.php?page=setting">설정</a></li>
