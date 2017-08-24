@@ -15,7 +15,7 @@
   $('.changePasswordButton').click(function (){
     var pwChk = true;
 
-    if (document.getElementById("new_password").value.length < 8){
+    if (document.getElementById("new_password").value.length < 4){
       $('.newPasswordWrong').html("비밀번호가 너무 짧습니다. 8글자 이상");
       pwChk = false;
     }
@@ -57,6 +57,9 @@
           var obj = $.parseJSON(result);
           if (obj.suc == true){
             alert("성공!");
+            document.getElementById('old_password').value = "";
+            document.getElementById('new_password').value = "";
+            document.getElementById('new_password_confirm').value = "";
           }
         }
       });
