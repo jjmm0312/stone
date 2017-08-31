@@ -1,10 +1,7 @@
 <?php
 $sql='SELECT * FROM device';
 $result=mysqli_query($conn,$sql);
-echo '<form id="device_manage_signal_form">';
 echo '<input type="submit" class ="bringDeviceSignal" value="신호가져오기"/>';
-echo '</form>';
-
 
 echo '<h2>연결된 기기 목록</h2>';
 
@@ -42,6 +39,11 @@ echo '</form>';
 ?>
 <script type="text/javascript">
   $('.bringDeviceSignal').click( function(){
-    
+    if ($('.bringDeviceSignal').val() == "신호가져오기"){
+      $('.bringDeviceSignal').val("멈추기");
+    }
+    else {
+      $('.bringDeviceSignal').val("신호가져오기");
+    }
   });
 </script>
