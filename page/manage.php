@@ -6,7 +6,7 @@ echo '<input type="submit" class ="bringDeviceSignal" value="신호가져오기"
 echo '<h2>연결된 기기 목록</h2>';
 
 echo '<h4>새로운 기기 목록</h4>';
-echo '로딩중...';
+echo '<em class="statusOfSignal"></em>';
 
 // 현재 기기출력 및 수정
 // 이미 저장 되어 있는 기기일 경우
@@ -38,12 +38,49 @@ echo  '<input type="submit" name="submit" value="추가">';
 echo '</form>';
 ?>
 <script type="text/javascript">
+
+  var setStatusOfSignal = function (msg){
+    $('.statusOfSignal').html(msg);
+  }
+
+  var sendDataToServer = function (soc, msg){
+    soc.send(msg);
+  }
+
+  var onMessage = function(e){
+      setStatusOfSignal("From Server, " + e);
+  }
+
+  var onOpen = function(e){
+    setStatusOfSignal("successfully connect server");
+  }
+
+  var onError = function(e){
+    setStatusOfSignal("some error occur");
+  }
+
+  var onClose = function(e){
+    setStatusOfSignal("sever is closed");
+  }
+
   $('.bringDeviceSignal').click( function(){
+    var wSocket;
     if ($('.bringDeviceSignal').val() == "신호가져오기"){
       $('.bringDeviceSignal').val("멈추기");
+      setStatusOfSignal("로딩중...");
+      wSocket = new WebSocket("ws:localhost:1000");
+      wSocket.onmessage = onMessage(event);
+      wSocket.onopen = onOpen(event);
+      wSocket.onclose = onClose(event);
+      wSocket.oneeor = onError(event);
+
     }
     else {
       $('.bringDeviceSignal').val("신호가져오기");
+      setStatusOfSignal("");
+      if (wSocket){
+        wSocket.close();
+      }
     }
   });
 </script>
