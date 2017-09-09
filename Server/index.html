@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Loading</title>
+  </head>
+  <body>
+    Loading...
+    <ul id="messages"></ul>
+    <script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+
+  var ex = {
+    mode : 'onoff',
+    type : 'abc',
+    ID : '55',
+    state : 'b'
+  };
+
+  var letter = {mode:'onoff'};
+    // post to php
+
+  $(function () {
+    var socket = io();
+    // post to php
+    socket.json.send(ex); // send device information
+    socket.on('message', function(msg){
+      console.log(msg);
+      if(msg.ID == letter.ID && msg.state == letter.state)
+      {
+        setTimeout("window.close()", 3000); // window close after 3 seconds
+      }});
+  });
+</script>
+  </body>
+</html>
