@@ -86,20 +86,23 @@ io.on('connection', function(socket){
 				// send signal to arduino
 				
 				var start = new Date().getTime();
-				var end;
-				var time;
+				var end =0;
+				var time=0;;
 				
 				var SerialPort = require('serialport'),
 					portName = '/dev/ttyAMA0',
-					Serial = new SerialPort(data){
+					Serial = new SerialPort(portName);
+				
+				Serial.on('open', function(){
 					console.log('Serial Port OPEN');
 					Serial.on('data', function(data){
 						while(data.toString() != from || time != 5000){
 							Serial.write(to);
+							end = new Date().getTime();
 							time = end-start;
 						}
-					});					
-				}				
+					});				
+				});		
 				
 				if(time == 5000){
 					sendMessage.state = 0; //fail
