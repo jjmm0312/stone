@@ -39,48 +39,8 @@ echo '</form>';
 ?>
 <script type="text/javascript">
 
-  var setStatusOfSignal = function (msg){
-    $('.statusOfSignal').html(msg);
-  }
-
-  var sendDataToServer = function (soc, msg){
-    soc.send(msg);
-  }
-
-  var onMessage = function(e){
-      setStatusOfSignal("From Server, " + e);
-  }
-
-  var onOpen = function(e){
-    setStatusOfSignal("successfully connect server");
-  }
-
-  var onError = function(e){
-    setStatusOfSignal("some error occur" + e);
-  }
-
-  var onClose = function(e){
-    setStatusOfSignal("sever is closed");
-  }
-
   $('.bringDeviceSignal').click( function(){
-    var wSocket;
-    if ($('.bringDeviceSignal').val() == "신호가져오기"){
-      $('.bringDeviceSignal').val("멈추기");
-      setStatusOfSignal("로딩중...");
-      wSocket = new WebSocket("ws://127.0.0.1:8000");
-      wSocket.onmessage = onMessage(event);
-      wSocket.onopen = onOpen(event);
-      wSocket.onclose = onClose(event);
-      wSocket.oneeor = onError(event);
-
-    }
-    else {
-      $('.bringDeviceSignal').val("신호가져오기");
-      setStatusOfSignal("");
-      if (wSocket){
-        wSocket.close();
-      }
-    }
+    var url = "./loading_device.html";
+    window.open(url);
   });
 </script>
