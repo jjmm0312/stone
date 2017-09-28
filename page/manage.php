@@ -40,7 +40,7 @@ echo '</form>';
 <script type="text/javascript">
 
   $('.bringDeviceSignal').click( function(){
-    var url = "./loading_device.html";
+    var url = "/mango?mode=find";
     window.open(url);
   });
 </script>
