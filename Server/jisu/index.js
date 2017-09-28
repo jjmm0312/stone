@@ -24,19 +24,23 @@ app.get('/', function(req, res){
 
 //소켓 연결
 io.on('connection',function(socket){
-	console.log('a user connected'); 
+	console.log('a user connected');
+	/* 
 	socket.on('disconnect', function(){
 		console.log('user disconnected');
 	});
-	
+	*/
 	//'find' listener
-	socket.on('find', function(){
+//	socket.on('find', function(){
 		
 		//serial open
 		Serial.on('open', function(){
+			console.log('open');
+			Serial.write('ok');
+			console.log('write');
 			Serial.on('data', function(){
 			//신호 전송
-			Serial.write(to);
+		//	Serial.write(to);
 			//신호가 회신될때 까지 대기(임의의 시간) ms 단위
 			delay(1000);
 			
@@ -57,10 +61,10 @@ io.on('connection',function(socket){
 						
 								
 		});
-	});
+//	});
 });
 
-http.listen(3000, function(){
+http.listen(4000, function(){
 	console.log('listening on *:3000');
 });
 

@@ -56,7 +56,7 @@ echo '</form>';
   }
 
   var onError = function(e){
-    setStatusOfSignal("some error occur");
+    setStatusOfSignal("some error occur" + e);
   }
 
   var onClose = function(e){
@@ -68,7 +68,7 @@ echo '</form>';
     if ($('.bringDeviceSignal').val() == "신호가져오기"){
       $('.bringDeviceSignal').val("멈추기");
       setStatusOfSignal("로딩중...");
-      wSocket = new WebSocket("ws:localhost:1000");
+      wSocket = new WebSocket("ws://127.0.0.1:8000");
       wSocket.onmessage = onMessage(event);
       wSocket.onopen = onOpen(event);
       wSocket.onclose = onClose(event);

@@ -9,29 +9,23 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
   document.write('Loading...');
-  var ex = {
-    mode : 'onoff',
-    type : 'abc',
-    ID : '55',
-    state : 'b'
-  };
-
-  var letter = {mode:'onoff'};
-    // post to php
-
   $(function () {
     var socket = io();
-    // post to php
-    socket.json.send(ex); // send device information
-    socket.on('message', function(msg){
-      console.log(msg);
-      if(msg.ID == letter.ID && msg.state == '1')
-      {
-        setTimeout("window.close()", 3000); // window close after 3 seconds
-      } // success
-      else {
-        documnet.write('FAIL');
-      } // fail
+     socket.on('message', function(msg){
+		document.write('RESULT : ');
+	  	if(msg == 'success'){        // success
+       	 setTimeout("window.close()", 3000); // window close after 3 seconds
+		 document.write('SUCCESS'); 
+		} 
+	
+      	else if(msg == 'fail') {        //fail
+        	document.write('FAIL');
+     	 } 
+		 else if(msg == 'wait'){        // wait
+			 document.write('PLEASE WAIT AND TRY AGAIN');
+			 setTimeout("window.close()", 3000);
+		 }
+	  
     });
   });
 </script>
