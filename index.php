@@ -1,74 +1,121 @@
 <?php
   //include 는 파일이 없을 경우 계속 하지만
   //require 는 파일이 없으면 멈춘다.
-  require './setting/sql_setting.php'
-
-
-
+  require './setting/sql_setting.php';
 ?>
+
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <title>Mango Block</title>
-  </head>
-  <body>
-
-    <header>
-      <h1><a href = "/">Mango block</a></h1>
-    </header>
-    <nav>
-      <ul id="menubar">
-        <?php
+    <head>
+       <meta charset="utf-8">
+       <link rel="stylesheet" type="text/css" href="css/style.css">
+       <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+        <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous"></script>
+        <script src="semantic/semantic.js"></script>
+        <title>Mango Block</title>
+    </head>
+      
+    <body>
+      <div class="ui sidebar inverted vertical menu labeled inline left icon" style="">
+         <a class="item"></a>
+          <?php
           //login session start
           session_start();
           if (!isset($_SESSION['user_id'])){
-            echo '<li><a href="index.php?page=login">로그인</a></li>';
+            echo '<a id="login" class="item">';
+            echo '<i class="power icon"></i>';
+            echo '로그인';
           }
           else {
-            echo '<li><a href="/process/logout_process.php">로그아웃</a></li>';
+            echo '<a id="logout" class="item">';
+            echo '<i class="power icon"></i>';
+            echo '로그아웃';
           }
          ?>
-        <li><a href="index.php?page=manage">기기관리</a></li>
-        <li><a href="index.php?page=mydevice">내 장치</a></li>
-        <li><a href="index.php?page=setting">설정</a></li>
-        <!--
-          // 이제부터 사용하지 않을 예정.
-          // while($row=mysqli_fetch_assoc($result))
-          // {
-          //   echo '<li><a href="index.php?id='.$row['id'].'">'.$row['name'].'</a></li>';
-          // }
-        -->
-
-      </ul>
-    </nav>
-
-    <!--id : 메뉴 ,num : 기기넘버-->
-
-    <article>
-      <?php
-	  	//메뉴를 클릭시 페이지 이동
-	  	if (empty($_GET['page']) == false){
-          if ($_GET['page'] == 'login'){
-        		include 'page/login.php';
-          }
-          else {
-            if (isset($_SESSION['user_id'])){
-          		include 'page/'.$_GET['page'].'.php';
+         </a>
+        <a id="manage" class="item">
+         <i class="tablet icon"></i>
+          기기관리
+        </a>
+        <a id="mydevice" class="item">
+         <i class="disk outline icon"></i>
+          내 장치
+        </a>
+        <a id="setting" class="item">
+         <i class="setting icon"></i>
+          설정
+        </a>
+      </div>
+      <div class="pusher">
+       <header>
+          <h1><i id ="menu" class="disabled sidebar icon"></i><a href = "/"> Mango block</a></h1>
+       </header>
+       <div id='contents' class="ui text container">
+       
+        <?php
+            //메뉴를 클릭시 페이지 이동
+            if (empty($_GET['page']) == false){
+              if ($_GET['page'] == 'login'){
+                    include 'page/login.php';
+              }
+              else {
+                if (isset($_SESSION['user_id'])){
+                    echo '<div class="ui piled segment">';
+                    include 'page/'.$_GET['page'].'.php';
+                    echo '</div>';
+                }
+                else {
+                  echo "<script language=javascript>";
+                  echo "alert('로그인이 필요합니다.');";
+                  echo "</script>";
+                  include 'page/login.php';
+                }
+              }
             }
-            else {
-              echo "<script language=javascript>";
-              echo "alert('로그인이 필요합니다.');";
-              echo "</script>";
-              include 'page/login.php';
-            }
-          }
-      	}
-    	else {	}
-     ?>
-    </article>
-  </body>
+            else {	}
+         ?>
+        
+       </div>
+       <?php
+       if(empty($_GET['page'])){
+         echo '<div">';
+         echo '<img id="mangoImg" src="img/mango.jpg">';
+         echo '</div>';
+       }
+         
+        
+        ?>
+        </div>
+      <script>
+        $('#menu').hover(function(){
+            document.getElementById('menu').className='sidebar icon';
+        },function(){
+            document.getElementById('menu').className='disabled sidebar icon';           
+        });
+        
+        // 메뉴 클릭 이벤트
+        $('#menu').click(function(){
+            $('.ui.sidebar').sidebar('toggle');
+        }); 
+        $('#login').click(function(){
+            location.href="index.php?page=login";
+        });
+        $('#logout').click(function(){
+            location.href="/process/logout_process.php";
+        });
+        $('#manage').click(function(){
+            location.href="index.php?page=manage";
+        });
+        $('#mydevice').click(function(){
+            location.href="index.php?page=mydevice";
+        });
+        $('#setting').click(function(){
+            location.href="index.php?page=setting";
+        });
+      </script>
+    </body>
 </html>
