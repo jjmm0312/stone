@@ -94,24 +94,11 @@ io.on('connection', function(socket){
 		socket.on('disconnect', function(){
 			console.log('socket is disconnected');
 			// if socket is registered, then unregister it!
-			/* not working... uu 
 			
-			* Method of copy is very important
+			//* Method of copy is very important
 
 			Object.keys(socketTable).forEach(function(key){
-					console.log('key is ' + key);
-					socketArr = socketTable[key];
-					console.log('arr size (before remove) is ' + socketArr.length);
-					var index = socketArr.indexOf(socket);
-					console.log('index is ' + index);
-					if (index > -1){
-						socketArr.slice(index, 1);
-						console.log('socket is removed. (after remove) size' + socketArr.length);
-						return;
-					}
-			});
-			*/
-			Object.keys(socketTable).forEach(function(key){
+				var socketArr = socketTable[key];
 				for (var index = 0; index < socketArr.length; index++){
 					if (socket == socketArr[index]){
 						var newArr = socketArr.slice(index, 1);
