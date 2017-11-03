@@ -6,12 +6,15 @@ var a = "A";
 var none = "";
 var on = "1";
 var off = "0";
+var find = "R00"
 var end = "\\r\\n";
 
 
 var serialState = 0; // case 1 : we wait the arduino respond
 var to = none+none+none+none+none;   // from server to arduino
 var from = none+none+none+none+none; // from arduino to server
+var deviceFind = r + '/' + find
+
 
 // information for request 
 var sendMessage = {
@@ -41,8 +44,8 @@ user : 'root'
 // send index.html and receive the request
 
 app.get('/', function(req,res){
-		res.sendFile(__dirname + '/index.html');
-
+		
+	
 		//receive the request by GET
 		var urlParse = url.parse(req.url, true);
 		var queryString = urlParse.query;
@@ -53,12 +56,16 @@ app.get('/', function(req,res){
 			sendMessage.ID = queryString.id;
 			sendMessage.state = queryString.state;
 			sendMessage.type = queryString.type;
-			sendMessage.mode = queryString.mode;
+			res.sendFile(__dirname + '/index.html');
 		}
 		else if(sendMessage.mode == 'onoff' && serialState==1){
 			io.on('connection',function(socket){
 			io.emit('message', 'wait');
+			res.sendFile(__dirname + '/index.html');
+
 			});
+		}else if(sendMessage.mode == 'find'){
+			res.sendFile(__dirname +  "/find.html");
 		}
 	});
 
@@ -130,11 +137,11 @@ io.on('connection', function(socket){
 
 			serial.on('open', function(){
 				console.log('Serial Port OPEN');
-			//	serial.write('write ok', function(err){}); //send test message
+				serial.write('write ok', function(err){}); //send test message
 				serial.write(to, function(err){}); // send message
 				serialState = 1; // we have to wait arduino respond
 				
-				serial.on('data', function(data){
+				Serial.on('data', function(data){
 					// success
 					if(data.toString() == from){  
 						// mysql upload
@@ -163,10 +170,23 @@ io.on('connection', function(socket){
 			});
 		});	//serial end
 			
+	}else if(sendMessage.mode == 'find'){ 
+		Serial.on('open',function(){
+			console.log('Serial port open');
+			serial.write(to, function(err){});
+		});
+		Serial.on('readable',function(){
+			var info = port.read().split('/');
+			var data = { 'type' : info[0], 'ID' : info[1] };
+			var to = JSON.stringify(data);
+			io.emit(to);  
+		});
 	}
+
 });
 
 http.listen(4000, function(){
 		console.log('listening on *:3000');
-});
+}
+);
 

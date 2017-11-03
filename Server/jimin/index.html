@@ -8,21 +8,21 @@
     <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
+ 	//clear();
   document.write('Loading...');
   $(function () {
     var socket = io();
      socket.on('message', function(msg){
-		document.write('RESULT : ');
 	  	if(msg == 'success'){        // success
        	 setTimeout("window.close()", 3000); // window close after 3 seconds
-		 document.write('SUCCESS'); 
+		 document.write('RESULT : SUCCESS '); 
 		} 
 	
       	else if(msg == 'fail') {        //fail
-        	document.write('FAIL');
+			confirm('RESULT : FAIL ');
      	 } 
 		 else if(msg == 'wait'){        // wait
-			 document.write('PLEASE WAIT AND TRY AGAIN');
+			 confirm('MUST RESET');
 			 setTimeout("window.close()", 3000);
 		 }
 	  

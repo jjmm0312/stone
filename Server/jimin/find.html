@@ -1,21 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Load Data</title>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
-  	<div class="log"></div>
-	<script>
-		document.write('Loading...');
-			$(function() {
-				var socket = io();
-				socket.on('message', function(msg){
-					document.write('RESULT : ');
-			  		$('log').append(msg);
-    			});
-			});
-	</script>
+    <table border=1px>
+      <tbody class="TableBody">
+        <tr class="HeaderRow" id="Header">
+          <td>id</td>
+          <td>type</td>
+          <td>memo</td>
+          <td>save</td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      var test = {};
+      test.id = "id test";
+      test.type = "Type test";
+
+      //addRow(test);
+      //addRow(test);
+      //addRow(test);
+
+      function addRow(obj){
+		console.log(obj);
+        var rowNum = $('.ContentRow').length;
+        $('.TableBody')
+        .append(
+          '<tr class="ContentRow" id="'+ rowNum + '">' +
+          '<td class="RowId">' + obj.id + '</td>' +
+          '<td class="RowType">' + obj.type + '</td>' +
+          '<td class="RowMemo"><input type="textfield" class="MemoField"/></td>' +
+          '<td class="RowButton"><input type="submit" class="SaveButton" id="'+ rowNum + '"/></td></tr>'
+        );
+      }
+
+      $(function (){
+        var socket = io();
+        socket.on('message', function (msg){
+          console.log('received msg : ' + msg);
+          addRow($.parseJSON(msg));
+		  //addRow(test);
+        });
+      });
+		
+		// 동적으로 추가된 엘리먼트를 컨트롤 하기 위해 이벤트 적용방법.	
+	  $(document).on('click', '.SaveButton', function(){
+		//console.log('click');
+        var rowId = this.id;
+        //console.log("clicked row number is " + rowId);
+        var $selectedRow = $('#' + rowId +'.ContentRow');
+        //console.log("selected row`s html source is " + $selectedRow.html());
+        //console.log("id is " + $selectedRow.attr('id'));
+        var deviceId = $selectedRow.children('.RowId').text().toString();
+        var deviceType = $selectedRow.children('.RowType').text().toString();
+        var deviceMemo = $selectedRow.children('.RowMemo').children('.MemoField').val().toString();
+        //console.log(deviceId + deviceType + deviceMemo);
+        var selectedDevice = {};
+        selectedDevice.id = deviceId;
+        selectedDevice.type = deviceType;
+        selectedDevice.memo = deviceMemo;
+        console.log(JSON.stringify(selectedDevice));
+        $.ajax({
+          type: 'POST',
+          url: '/mango?mode=save',
+		  //url: './',
+          data: selectedDevice,
+          success: function(res) {
+            console.log(res);
+            if (res.msg == 'success'){
+              alert('save complete');
+			  $('tr[id='+rowId +']').remove();
+
+            }
+            else {
+              alert('save fail...');
+            }
+          }
+        });
+      });
+
+
+
+    </script>
   </body>
 </html>
