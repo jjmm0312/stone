@@ -1,5 +1,5 @@
 header {
-  border-bottom: 1px gray solid;
+  //border-bottom: 1px gray solid;
   padding: 40px;
 }
 
@@ -40,4 +40,8 @@ article {
 
 #device_manage_signal_form{
   margin-bottom: 20px;
+}
+
+#mangoImg{
+  max-width: 100%;
 }
