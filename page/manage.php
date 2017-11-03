@@ -59,25 +59,30 @@ while($row=mysqli_fetch_assoc($result)){
             $.ajax({
                url: "process/delete_process.php",
                type: "post",
-               data: id="'.$row['id'].'",
+               data: "id='.$row['id'].'",
                success:function(data){//콜백 함수
                  console.log("'.$row['id'].'");
                  console.log(data);
+				 location.reload();
                }
              })      
            })
 
           // 버튼 클릭시 수정내용 post방식 전송
-          $("#'.$row['id'].'").click(function(){
+		  $("#'.$row['id'].'").click(function(){
+			var sendData = $("#'.$row['id'].'Name").serialize() +"&" 
+						  + $("#'.$row['id'].'Description").serialize() + "&"
+						  + "id='.$row['id'].'" ;
             $.ajax({
               url:"process/update_process.php",
               type:"post",
-              data:$("#'.$row['id'].'Name").serialize()&
-                   $("#'.$row['id'].'Description").serialize(),
+              data: sendData,
               success:function(data){//콜백 함수
+			  	console.log(sendData);
                 console.log($("#'.$row['id'].'Name").serialize());
                 console.log($("#'.$row['id'].'Description").serialize());
                 console.log(data);
+				location.reload();
               }
             })            
           })
