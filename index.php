@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-       <meta charset="utf-8">
+       <meta charset="utf-8" name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height">
        <link rel="stylesheet" type="text/css" href="css/style.css">
        <link rel="stylesheet" type="text/css" href="semantic/semantic.css">
         <script
