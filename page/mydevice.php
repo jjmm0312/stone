@@ -36,13 +36,13 @@ while($row=mysqli_fetch_assoc($result)){
 	          <div class="center">';
           if($row['state']==1){ // on
             echo '<form  class="" action="update_process.php" method="post">
-                  <input type="button" class="ui button" value='.$on.' onclick="window.open(\'/mango?id='.$row['id'].'&state=1&mode='.$on.'&type='.$type.'\',\'width=500, height=200\')">
-                  <input type="button" class="ui red button" value='.$off.' onclick= "window.open(\'/mango?id='.$row['id'].'&state=0&mode='.$off.'&type='.$type.'\',\'width=500, height=200\')">
+                  <input type="button" class="ui button" value='.$on.' onclick="window.open(\'/mango?id='.$row['id'].'&state=1&mode=onoff&type='.$type.'\',\'width=500, height=200\')">
+                  <input type="button" class="ui red button" value='.$off.' onclick= "window.open(\'/mango?id='.$row['id'].'&state=0&mode=onoff&type='.$type.'\',\'width=500, height=200\')">
                   </form>';
           }else{ // off
             echo '<form  class="" action="update_process.php" method="post">
-                  <input type="button" class="ui green button" value='.$on.' onclick="window.open(\'/mango?id='.$row['id'].'&state=1&mode='.$on.'&type='.$type.'\',\'width=500, height=200\')">
-                  <input type="button" class="ui button" value='.$off.' onclick= "window.open(\'/mango?id='.$row['id'].'&state=0&mode='.$off.'&type='.$type.'\',\'width=500, height=200\')">
+                  <input type="button" class="ui green button" value='.$on.' onclick="window.open(\'/mango?id='.$row['id'].'&state=1&mode=onoff&type='.$type.'\',\'width=500, height=200\')">
+                  <input type="button" class="ui button" value='.$off.' onclick= "window.open(\'/mango?id='.$row['id'].'&state=0&mode=onoff&type='.$type.'\',\'width=500, height=200\')">
                   </form>';
           }		  
 		echo '</div>
