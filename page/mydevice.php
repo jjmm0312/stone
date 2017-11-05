@@ -47,9 +47,9 @@ while($row=mysqli_fetch_assoc($result)){
           }		  
 		echo '</div>
 	         </div>
-	        </div>
+	        </div>';
 	//image load
-	       <img src="img/';	
+	 echo  '<img src="img/';	
      switch ($type){
        case 0:
        echo 'button.jpg">';
@@ -65,7 +65,7 @@ while($row=mysqli_fetch_assoc($result)){
 	echo '</div>';
 	//card name
 	echo  '<div class="content">
-	      <a class="header">'.$row['name'].'</a>'
+	      <a class="header">'.$row['name'].'</a>';
 	//enrolled time
 	echo  '<div class="meta">
 	      <span class="date">Enrolled in '.$row['created'].'</span>

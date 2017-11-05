@@ -4,26 +4,50 @@
     <title>Loading</title>
   </head>
   <body>
-    <ul id="messages"></ul>
+    <h2 class="msgBox"></h2>
     <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
- 	//clear();
-  document.write('Loading...');
-  $(function () {
-    var socket = io();
-     socket.on('message', function(msg){
+
+function exitFunction(){
+	opener.parent.location.reload();
+	self.opener = self;
+	self.close();
+}
+
+var suc = false;
+$(function () {
+	var socket = io();
+	const target_id = '#target_id';
+	socket.emit('message', JSON.stringify({cmd:'#command', target:target_id}));
+	socket.on('message', function(msg){
+		console.log(msg);
 	  	if(msg == 'success'){        // success
-       	 setTimeout("window.close()", 3000); // window close after 3 seconds
-		 document.write('RESULT : SUCCESS '); 
+			setTimeout("window.close()", 3000); // window close after 3 seconds
+			document.write('RESULT : SUCCESS '); 
 		} 
-	
-      	else if(msg == 'fail') {        //fail
+		else if(msg == 'fail') {        //fail
 			confirm('RESULT : FAIL ');
+			setTimeout('window.close()', 3000);
      	 } 
-		 else if(msg == 'wait'){        // wait
+		else if(msg == 'wait'){        // wait
 			 confirm('MUST RESET');
 			 setTimeout("window.close()", 3000);
+		 }
+		else { // if device id comes from socket
+			var res = JSON.parse(msg);
+			if (res.status == 'time_out'){
+				if (suc == false){
+					$('.msgBox').html('Response_Time_Out');
+				}
+			}
+			if (target_id == res.target_id){
+				socket.emit('message', 'socket_end');
+				$('.msgBox').html('Success!');
+				suc = true;
+				setTimeout('exitFunction()', 3000);
+				//exitFunction();
+			}
 		 }
 	  
     });

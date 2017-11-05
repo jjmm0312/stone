@@ -6,7 +6,10 @@ serial.on('open',function(){
 	console.log('ok');
 	serial.write('ok',function(err){});
 	console.log('send');
+});
+
 	serial.on('data',function(data){
+		console.log(data.toString());
 		console.log('serial');
 	});
-});
+

@@ -7,6 +7,7 @@
     <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
+  	<h2 class="msgBox"></h2>
     <table border=1px>
       <tbody class="TableBody">
         <tr class="HeaderRow" id="Header">
@@ -18,16 +19,8 @@
       </tbody>
     </table>
     <script>
-      var test = {};
-      test.id = "id test";
-      test.type = "Type test";
-
-      //addRow(test);
-      //addRow(test);
-      //addRow(test);
-
-      function addRow(obj){
-		console.log(obj);
+	function addRow(obj){
+		console.log('row added', obj);
         var rowNum = $('.ContentRow').length;
         $('.TableBody')
         .append(
@@ -36,17 +29,23 @@
           '<td class="RowType">' + obj.type + '</td>' +
           '<td class="RowMemo"><input type="textfield" class="MemoField"/></td>' +
           '<td class="RowButton"><input type="submit" class="SaveButton" id="'+ rowNum + '"/></td></tr>'
-        );
-      }
-
-      $(function (){
-        var socket = io();
-		var sendData = { cmd:'R00'};
+		);
+    }
+	$(function (){
+		var socket = io();
+		var sendData = { cmd:'R00', target:'Z9999'};
 		socket.emit('message', JSON.stringify(sendData));
         socket.on('message', function (msg){
-          console.log('received msg : ' + msg);
-          addRow($.parseJSON(msg));
-		  //addRow(test);
+        	console.log('received msg : ' + msg);
+			var obj = JSON.parse(msg);
+			if (obj.status){ // if status exist
+				if (obj.status == 'time_end'){
+					$('.msgBox').html('Register_Time_End. Disconnected!');
+				}
+			} 
+			else {
+				addRow($.parseJSON(msg));
+			}
         });
       });
 		

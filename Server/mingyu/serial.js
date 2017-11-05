@@ -19,7 +19,6 @@ port.open(function (err){
 port.on('open', function(){
 		console.log('callback: open');
 		console.log('send test code');
-		port.write("R/Z9999/R00//\\r\\n", function(err){console.log(err.message)});
 	}
 );
 
@@ -34,6 +33,9 @@ port.on('close', function(err){
 );
 
 exports.parser = parser;
+exports.write = function(data){
+	port.write(data, console.log);
+}
 
 /*
 exports.dataEvent = function(callback){
