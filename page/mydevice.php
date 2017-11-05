@@ -62,21 +62,21 @@ while($row=mysqli_fetch_assoc($result)){
        break;
        default:
      }
-	echo '</div>
+	echo '</div>';
 	//card name
-	      <div class="content">
-	      <a class="header">'.$row['name'].'</a>
+	echo  '<div class="content">
+	      <a class="header">'.$row['name'].'</a>'
 	//enrolled time
-	      <div class="meta">
+	echo  '<div class="meta">
 	      <span class="date">Enrolled in '.$row['created'].'</span>
-	      </div>
+	      </div>';
 	//description
-	      <div class="description">';
+	echo  '<div class="description">';
     echo  $row['description'];
 	echo '</div>
-	      </div>
+	      </div>';
 	//extra content
-          <div class="extra content">
+    echo  '<div class="extra content">
           <a>
           <i class="idea icon"></i>
           현재 상태: ';
