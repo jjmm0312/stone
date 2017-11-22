@@ -44,7 +44,7 @@ const CmdArduPrefix = 'A';
 
 const CmdRaspRegister = 'R00';
 const CmdRaspOff = 'A00';
-const CmdRaspOn = 'A01';
+const CmdRaspOn = 'A11';
 const CmdRaspSendSignal = 'C00';
 const CmdRaspChangeMode = 'C01';
 const CmdArduSendId = 'A00';
@@ -142,7 +142,7 @@ serial.parser.on('data', readFromSerial);
 var io = require('socket.io')(http);
 var reqCmdList = [
 					'R00', // cmd to get device id 
-					'A01', // cmd to turn on switch/button
+					'A11', // cmd to turn on switch/button
 					'A00', // cmd to turn off switch/button
 					'B00',
 					'C00',
@@ -226,7 +226,7 @@ io.on('connection', function(socket){
 							setTimeout(closeSocket, 5000, 'time_end', socket);
 						}
 						else { // set time_out
-							setTimeout(closeSocket, 3000, 'time_out', socket);
+							setTimeout(closeSocket, 10000, 'time_out', socket);
 						}
 						// send command using serial
 						var sendMsg = CmdRaspPrefix + '/' + target + '/' + command + '///\\r\\n\r\n';  

@@ -65,7 +65,7 @@ router.get('/', function(req,res){
 					command = 'A00';
 				}
 				else if (state == 1){ // on
-					command = 'A01';
+					command = 'A11';
 				}
 			}
 		   	var sendStr = (onoffFileString.replace('#command', command).replace('#target_id', id));
